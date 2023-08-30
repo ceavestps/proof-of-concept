@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - '.github/workflows/catalog-tests.yaml'
       - 'src/Services/Catalog/**'
 jobs:
   build:
