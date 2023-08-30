@@ -10,9 +10,9 @@ public class Thing
         if (id == Guid.Empty)
             throw new ArgumentException("Id should not be empty.", nameof(id));
 
-        Id   = id;
+        Id = id;
 
-        if (string.IsNullOrWhiteSpace (name) || name.Length < 3)
+        if (string.IsNullOrWhiteSpace (name) || name.Length < 2)
             throw new ArgumentException("Name should be at least 3 characters long.", nameof(name));
 
         Name = name;
