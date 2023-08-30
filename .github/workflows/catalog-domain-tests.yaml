@@ -1,5 +1,6 @@
 ﻿name: Catalog Domain Tests
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'src/Catalog/Catalog.Domain/**'
