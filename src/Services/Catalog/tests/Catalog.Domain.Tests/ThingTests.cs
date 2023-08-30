@@ -1,50 +1,30 @@
-﻿namespace Catalog.Domain.Tests;
+﻿using Catalog.Domain.Things;
+
+namespace Catalog.Domain.Tests;
 
 [TestFixture]
 public class ThingTests
 {
-    [Test]
-    public void Constructor_ValidGuidAndValidName_ShouldSetProperties ()
-    {
-        // Arrange
-        var id = Guid.NewGuid();
-        var name = "Valid Name";
+   [Test]
+   public void Given_IdAndName_When_Constructor_Then_PropertiesShouldBeSet ()
+   {
+      var id         = Guid.NewGuid ();
+      var nameResult = ThingName.Create ("Valid Name");
+      nameResult.IsSuccess.Should ().BeTrue ();
 
-        // Act
-        var thing = new Thing(id, name);
+      var thing = new Thing (id, nameResult.Value);
 
-        // Assert
-        thing.Id.Should().Be(id);
-        thing.Name.Should().Be(name);
-    }
+      thing.Id.Should ().Be (id);
+      thing.Name.Should ().Be (nameResult.Value);
+   }
 
-    [Test]
-    public void Constructor_EmptyGuidAndValidName_ShouldThrowException ()
-    {
-        // Arrange
-        var id = Guid.Empty;
-        var name = "Valid Name";
+   [Test]
+   public void Given_IdAndNullName_When_Constructor_Then_ArgumentExceptionShouldBeThrown ()
+   {
+      var id = Guid.Empty;
 
-        // Act
-        var action = () => { var _ = new Thing(id, name); };
+      var action = () => _ = new Thing (id, null);
 
-        // Assert
-        action.Should().Throw<ArgumentException>();
-    }
-
-    [TestCase(null)]
-    [TestCase("")]
-    [TestCase(" ")]
-    [TestCase("ab")]
-    public void Constructor_ValidGuidAndInvalidName_ShouldThrowException (string name)
-    {
-        // Arrange
-        var id = Guid.NewGuid();
-
-        // Act
-        var action = () => { var _ = new Thing(id, name); };
-
-        // Assert
-        action.Should().Throw<ArgumentException>();
-    }
+      action.Should ().Throw<ArgumentException> ();
+   }
 }
