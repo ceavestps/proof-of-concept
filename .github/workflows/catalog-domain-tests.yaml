@@ -1,10 +1,9 @@
-﻿name: Catalog Domain Tests
+﻿name: Catalog Tests
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'src/Catalog/Catalog.Domain/**'
-      - 'tests/Catalog/Catalog.Domain.Tests/**'
+      - 'src/Catalog/**'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,11 +20,14 @@ jobs:
       - name: Display dotnet version
         run: dotnet --version
       - name: Install dependencies
-        run: dotnet restore
+        working-directory: ./src/Services/Catalog
+        run: dotnet restore --solution src/Catalog/Catalog.sln --no-cache
       - name: Build
+        working-directory: ./src/Services/Catalog
         run: dotnet build --configuration Release --no-restore
       - name: Test
-        run: dotnet test --configuration Release --no-restore --verbosity normal
+        working-directory: ./src/Services/Catalog
+        run: dotnet test --configuration Release --no-restore --verbosity normal --project
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
