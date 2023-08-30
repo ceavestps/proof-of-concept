@@ -27,7 +27,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
       - name: Test
         working-directory: ./src/Services/Catalog
-        run: dotnet test --configuration Release --no-restore --verbosity normal
+        run: dotnet test --configuration Release --no-restore --verbosity normal --results-directory TestResults-${{ matrix.dotnet-version }}
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
