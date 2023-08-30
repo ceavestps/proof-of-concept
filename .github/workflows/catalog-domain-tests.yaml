@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'src/Catalog/**'
+      - 'src/Services/Catalog/**'
 jobs:
   build:
     runs-on: ubuntu-latest
