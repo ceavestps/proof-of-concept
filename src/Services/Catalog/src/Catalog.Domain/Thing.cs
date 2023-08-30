@@ -12,7 +12,7 @@ public class Thing
 
         Id = id;
 
-        if (string.IsNullOrWhiteSpace (name) || name.Length < 2)
+        if (string.IsNullOrWhiteSpace (name) || name.Length < 3)
             throw new ArgumentException("Name should be at least 3 characters long.", nameof(name));
 
         Name = name;
