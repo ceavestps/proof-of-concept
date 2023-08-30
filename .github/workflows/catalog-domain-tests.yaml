@@ -32,6 +32,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dotnet-test-results-${{ matrix.dotnet-version }}
-          working-directory: ./src/Services/Catalog
-          path: TestResults-${{ matrix.dotnet-version }}
+          path: ./src/Services/Catalog/TestResults-${{ matrix.dotnet-version }}
         if: ${{ always() }}
