@@ -1,5 +1,4 @@
 ﻿using Catalog.Application.Things.CreateThing;
-using Catalog.Domain;
 using Catalog.Domain.Things;
 
 namespace Catalog.Application.Tests;
@@ -24,6 +23,8 @@ public class ThingHandlersTests
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
+        _thingRepositoryMock.Received ().Create (Arg.Is<Thing> (t => t.Name.Value == command.Name));
+        await _thingRepositoryMock.Received ().SaveChanges ();
     }
 
     [Test]
@@ -36,5 +37,7 @@ public class ThingHandlersTests
 
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().NotBeEmpty();
+        _thingRepositoryMock.DidNotReceive ().Create (Arg.Any<Thing> ());
+        await _thingRepositoryMock.DidNotReceive ().SaveChanges ();
     }
 }
