@@ -21,13 +21,13 @@ jobs:
         run: dotnet --version
       - name: Install dependencies
         working-directory: ./src/Services/Catalog
-        run: dotnet restore --solution src/Catalog/Catalog.sln --no-cache
+        run: dotnet restore
       - name: Build
         working-directory: ./src/Services/Catalog
         run: dotnet build --configuration Release --no-restore
       - name: Test
         working-directory: ./src/Services/Catalog
-        run: dotnet test --configuration Release --no-restore --verbosity normal --project
+        run: dotnet test --configuration Release --no-restore --verbosity normal
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
